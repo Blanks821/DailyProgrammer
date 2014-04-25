@@ -66,7 +66,10 @@ namespace Easy_159
                 playerTwo = (Hand)rand.Next(1, 5);
 
                 GameStats.AddGame(outcome = Rules(playerOne, playerTwo));
-                Console.WriteLine("{0}!\n{1}", outcome.Message, outcome.Outcome == Outcome.Win ? GameMessages.win : GameMessages.lose);
+                if (outcome.Outcome != Outcome.Tie)                
+                    Console.WriteLine("{0}!\n{1}", outcome.Message, outcome.Outcome == Outcome.Win ? GameMessages.win : GameMessages.lose);
+                else
+                    Console.WriteLine("Both you and the computer threw the same hand.\n{0}", GameMessages.tie);
             }
             // TODO: Exit stats display
         }
