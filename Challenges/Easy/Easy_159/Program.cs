@@ -9,6 +9,7 @@ namespace Easy_159
     {
         static void Main(string[] args)
         {
+            GameStats.Start();
             MainLoop();
         }
 
@@ -18,20 +19,20 @@ namespace Easy_159
             WinState outcome;
             bool done = false;
 
-            Console.WriteLine("Welcome to Rock Paper Scissors Lizard Spock!");
+            Console.WriteLine("********** Welcome to Rock Paper Scissors Lizard Spock! **********\n");
 
             // Game Loop
             while (!done)
             {
                 Console.WriteLine("Please make a selection:");
-                Console.WriteLine("\t1)Rock\n\t2)Paper\n\t3)Scissors\n\t4)Lizard\n\t5)Spock\nPress Q to Quit...");
+                Console.WriteLine("\t1)Rock\n\t2)Paper\n\t3)Scissors\n\t4)Lizard\n\t5)Spock\nPress Q to Quit...\n");
                 char input = Convert.ToChar(Console.Read());
 
                 playerOne = Hand.Invalid;
 
                 switch (input)
                 {
-                    case 'q': 
+                    case 'q':
                     case 'Q':
                         done = true;
                         break;
@@ -66,12 +67,22 @@ namespace Easy_159
                 playerTwo = (Hand)rand.Next(1, 5);
 
                 GameStats.AddGame(outcome = Rules(playerOne, playerTwo));
-                if (outcome.Outcome != Outcome.Tie)                
-                    Console.WriteLine("{0}!\n{1}", outcome.Message, outcome.Outcome == Outcome.Win ? GameMessages.win : GameMessages.lose);
+                if (outcome.Outcome != Outcome.Tie)
+                    Console.WriteLine("{0}!\n{1}\n\n", outcome.Message, outcome.Outcome == Outcome.Win ? GameMessages.win : GameMessages.lose);
                 else
-                    Console.WriteLine("Both you and the computer threw the same hand.\n{0}", GameMessages.tie);
+                    Console.WriteLine("Both you and the computer threw the same hand.\n{0}!\n\n", GameMessages.tie);
+
+                Console.Write("Would you like to play again (y/n)?");
+                input = Convert.ToChar(Console.Read());
+                if (input == 'n' || input == 'N')
+                    done = true;
+
             }
             // TODO: Exit stats display
+            Console.WriteLine("\n*************************** Game Stats ***************************\n");
+            Console.WriteLine("\tGames Played: {0}\n\tYou Won: {1}\n\tComputer Won: {2}\n\tTies: {3}\n\n", 
+                GameStats.TotalGames, GameStats.HumanWins, GameStats.ComputerWins, GameStats.Ties);
+            Console.WriteLine("*********************** Thanks for Playing ***********************\n");
         }
 
         private static WinState Rules(Hand playerOne, Hand playerTwo)
