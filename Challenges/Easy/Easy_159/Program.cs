@@ -15,6 +15,7 @@ namespace Easy_159
 
         private static void MainLoop()
         {
+            Random rand = new Random();
             Hand playerOne, playerTwo;
             WinState outcome;
             bool done = false;
@@ -25,8 +26,8 @@ namespace Easy_159
             while (!done)
             {
                 Console.WriteLine("Please make a selection:");
-                Console.WriteLine("\t1)Rock\n\t2)Paper\n\t3)Scissors\n\t4)Lizard\n\t5)Spock\nPress Q to Quit...\n");
-                char input = Convert.ToChar(Console.Read());
+                Console.WriteLine("\t1)Rock\n\t2)Paper\n\t3)Scissors\n\t4)Lizard\n\t5)Spock\nPress Q to Quit...");
+                char input = Convert.ToChar(Console.ReadLine());
 
                 playerOne = Hand.Invalid;
 
@@ -61,9 +62,7 @@ namespace Easy_159
                 {
                     Console.WriteLine("Invalid selection");
                     continue;
-                }
-
-                Random rand = new Random();
+                }                
                 playerTwo = (Hand)rand.Next(1, 5);
 
                 GameStats.AddGame(outcome = Rules(playerOne, playerTwo));
@@ -73,7 +72,7 @@ namespace Easy_159
                     Console.WriteLine("Both you and the computer threw the same hand.\n{0}!\n\n", GameMessages.tie);
 
                 Console.Write("Would you like to play again (y/n)?");
-                input = Convert.ToChar(Console.Read());
+                input = Convert.ToChar(Console.ReadLine());
                 if (input == 'n' || input == 'N')
                     done = true;
 
